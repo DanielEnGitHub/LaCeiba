@@ -1,11 +1,13 @@
 import React from 'react'
 import { IconButton, Box, CloseButton, Flex, Icon, useColorModeValue, Text, Drawer, DrawerContent, useDisclosure } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { PiArchiveBold, PiGitForkBold, PiUsersThreeBold } from "react-icons/pi";
+
 
 const LinkItems = [
-  { name: 'Productos', link: '/products' },
-  { name: 'Proveedores', link: '/providers' },
-  { name: 'Categorias', link: '/categories' },
+  { name: 'Productos', link: '/products', icon: PiArchiveBold },
+  { name: 'Proveedores', link: '/providers', icon: PiUsersThreeBold },
+  { name: 'Categorias', link: '/categories', icon: PiGitForkBold },
 ];
 
 const SideBar = ({children}) => {
@@ -49,13 +51,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+          La Ceiba
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
         <Link to={link.link} key={link.name} >
-          <NavItem>{link.name}</NavItem>
+          <NavItem icon={link.icon}>{link.name}</NavItem>
         </Link>
       ))}
     </Box>

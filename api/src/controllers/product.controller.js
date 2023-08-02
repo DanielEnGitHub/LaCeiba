@@ -59,12 +59,13 @@ export const postProduct = async (req, res) => {
             ],
         }
         );
-        if (newProduct) {
-        return res.json({
-            message: "Product created successfully",
-            data: newProduct,
-        });
+        if (!newProduct) {
+          return res.status(500).send("Error");
         }
+        return res.json({
+          message: "Product created successfully",
+          data: newProduct,
+        });
     } catch (error) {
         console.log(error);
         return res
@@ -141,44 +142,29 @@ export const updateProduct = async (req, res) => {
           existence,
         } = req.body;
     
-        const products = await Product.findAll({
-          attributes: [
-            "id_product",
-            "product",
-            "description",
-            "expiration_date",
-            "date_of_entry",
-            "id_provaider",
-            "quantity",
-            "price_cost",
-            "sale_price",
-            "existence",
-            "active",
-          ],
+        const products = await Product.findOne({
           where: {
             id_product: id,
             active: true,
           },
         });
-    
-        if (products.length > 0) {
-          products.forEach(async (product) => {
-            await product.update({
-              product,
-              description,
-              expiration_date,
-              date_of_entry,
-              id_provaider,
-              quantity,
-              price_cost,
-              sale_price,
-              existence,
-            });
-          });
-        } else {
-            return res.status(404).json({ message: "Error update" });
+
+        if (!products) {
+          return res.status(404).json({ message: "Error update" });
         }
     
+        await products.update({
+          product,
+          description,
+          expiration_date,
+          date_of_entry,
+          id_provaider,
+          quantity,
+          price_cost,
+          sale_price,
+          existence,
+        });
+
         return res.json({
           message: "Product updated successfully",
           data: products,

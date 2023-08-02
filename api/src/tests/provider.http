@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ### delete category
-DELETE {{url}}/provider/2
+DELETE {{url}}/provider/6
 
 ### view category
 GET {{url}}/provider/1
@@ -23,7 +23,7 @@ PUT {{url}}/provider/1
 Content-Type: application/json
 
 {
-  "name": "hola",
+  "name": "test",
   "last_name": "test",
   "nit": 4545454
 }

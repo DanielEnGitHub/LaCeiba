@@ -19,17 +19,17 @@ Content-Type: application/json
 }
 
 ### delete category
-DELETE {{url}}/product/1
+DELETE {{url}}/product/3
 
 ### view category
-GET {{url}}/product/1
+GET {{url}}/product/2
 
 ### update category
-PUT {{url}}/product/1
+PUT {{url}}/product/2
 Content-Type: application/json
 
 {
-  "product": "hola",
+  "product": "qwerqwer",
   "description": "test",
   "expiration_date": "2021-05-05",
   "date_of_entry": "2021-05-05",

@@ -33,12 +33,13 @@ export const postCategory = async (req, res) => {
         }
         );
 
-        if (category) {
+        if (!category) {
+          return res.status(500).send("Error");
+        }
         return res.json({
             message: "Category created successfully",
             data: category,
         });
-        }
     } catch (error) {
         console.log(error);
         return res

@@ -34,12 +34,13 @@ export const postProvider = async (req, res) => {
         }
         );
 
-        if (provider) {
-        return res.json({
-            message: "Provider created successfully",
-            data: provider,
-        });
+        if (!provider) {
+          return res.status(404).json({ message: "Error create" });
         }
+        return res.json({
+          message: "Provider created successfully",
+          data: provider,
+      });
     } catch (error) {
         console.log(error);
         return res

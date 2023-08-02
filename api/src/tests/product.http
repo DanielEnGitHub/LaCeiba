@@ -1,0 +1,41 @@
+@url = http://localhost:3000/api
+### get category
+GET {{url}}/product/
+
+### post category
+POST {{url}}/product/
+Content-Type: application/json
+
+{
+  "product": "test",
+  "description": "test",
+  "expiration_date": "2021-05-05",
+  "date_of_entry": "2021-05-05",
+  "id_provaider": 1,
+  "quantity": 1,
+  "price_cost": 1,
+  "sale_price": 1,
+  "existence": 1
+}
+
+### delete category
+DELETE {{url}}/product/1
+
+### view category
+GET {{url}}/product/1
+
+### update category
+PUT {{url}}/product/1
+Content-Type: application/json
+
+{
+  "product": "hola",
+  "description": "test",
+  "expiration_date": "2021-05-05",
+  "date_of_entry": "2021-05-05",
+  "id_provaider": 1,
+  "quantity": 1,
+  "price_cost": 1,
+  "sale_price": 1,
+  "existence": 1
+}

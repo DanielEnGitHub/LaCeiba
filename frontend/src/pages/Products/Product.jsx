@@ -20,9 +20,9 @@ const Product = () => {
           fontWeight={600}
           fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
           lineHeight={'110%'}>
-          Meeting scheduling{' '}
+          Prod
           <Text as={'span'} color={'orange.400'}>
-            made easy
+            uctos
           </Text>
         </Heading>
         <Text color={'gray.500'} maxW={'3xl'}>

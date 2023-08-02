@@ -1,0 +1,27 @@
+@url = http://localhost:3000/api
+### get category
+GET {{url}}/category/
+
+### post category
+POST {{url}}/category/
+Content-Type: application/json
+
+{
+  "categoria": "test",
+  "description": "test"
+}
+
+### delete category
+DELETE {{url}}/category/2
+
+### view category
+GET {{url}}/category/3
+
+### update category
+PUT {{url}}/category/3
+Content-Type: application/json
+
+{
+  "categoria": "test",
+  "description": "hola"
+}

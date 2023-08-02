@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Flex,
   Container,
@@ -7,8 +7,55 @@ import {
   Text,
   Button,
 } from '@chakra-ui/react'
+import TableComponent from '../../components/Tables/TableComponent';
+import useListAPI from "../../hooks/useListAPI";
+import {listProducts} from "../../conection/products";
+
+const columns =  [
+  {
+    Header: "Productos",
+    columns: [
+      { 
+        Header: "Codigo", 
+        accessor: "id_product" 
+      },
+      {
+        Header: "Nombre Producto",
+        accessor: "product",
+      },
+      {
+        Header: "Cantidad",
+        accessor: "quantity",
+      },
+      {
+        Header: "Precio",
+        accessor: "price_cost",
+      },
+      {
+        Header: "Precio Venta",
+        accessor: "sale_price",
+      },
+      {
+        Header: "Existencia",
+        accessor: "existence",
+      },
+      {
+        Header: "Acciones",
+        accessor: (d) => {
+          return (
+            <>
+              nada
+            </>
+          );
+        },
+      },
+    ],
+  },
+];
 
 const Product = () => {
+  const { data, getData } = useListAPI({ getFunction: listProducts });
+
   return (
     <Container maxW={'5xl'}>
       <Stack
@@ -25,13 +72,10 @@ const Product = () => {
             uctos
           </Text>
         </Heading>
-        <Text color={'gray.500'} maxW={'3xl'}>
-          Never miss a meeting. Never be late for one too. Keep track of your meetings and
-          receive smart reminders in appropriate times. Read your smart “Daily Agenda”
-          every morning.
-        </Text>
+
         <Stack spacing={6} direction={'row'}>
-          <Button
+        <TableComponent columns={columns} data={data} />
+          {/* <Button
             rounded={'full'}
             px={6}
             colorScheme={'orange'}
@@ -41,7 +85,7 @@ const Product = () => {
           </Button>
           <Button rounded={'full'} px={6}>
             Learn more
-          </Button>
+          </Button> */}
         </Stack>
         <Flex w={'full'}>
           {/* <Illustration height={{ sm: '24rem', lg: '28rem' }} mt={{ base: 12, sm: 16 }} /> */}
@@ -52,7 +96,3 @@ const Product = () => {
 }
 
 export default Product;
-
-
-
-

@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ### delete category
-DELETE {{url}}/category/2
+DELETE {{url}}/category/4
 
 ### view category
 GET {{url}}/category/3
@@ -22,6 +22,6 @@ PUT {{url}}/category/3
 Content-Type: application/json
 
 {
-  "categoria": "test",
+  "categoria": "zxcvxzcv",
   "description": "hola"
 }

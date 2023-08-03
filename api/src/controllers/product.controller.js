@@ -1,4 +1,6 @@
+import Category from "../models/category.js";
 import Product from "../models/product.js";
+import ProductCategory from "../models/product_category.js";
 import Provider from "../models/provider.js";
 
 // GET
@@ -31,6 +33,7 @@ export const postProduct = async (req, res) => {
     price_cost,
     sale_price,
     existence,
+    categories,
   } = req.body;
 
   try {
@@ -63,6 +66,18 @@ export const postProduct = async (req, res) => {
     if (!newProduct) {
       return res.status(500).send("Error");
     }
+
+    try {
+      categories.forEach(async (category) => {
+        await ProductCategory.create({
+          id_product: newProduct.id_product,
+          id_category: category.value,
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
     return res.json({
       message: "Product created successfully",
       data: newProduct,
@@ -129,6 +144,36 @@ export const viewProduct = async (req, res) => {
       console.log(error);
     }
 
+    try {
+      const categories = await ProductCategory.findAll({
+        where: {
+          id_product: product.id_product,
+        },
+      });
+
+      const categoryNames = await Promise.all(
+        categories.map(async (category) => {
+          const categoryName = await Category.findOne({
+            where: {
+              id_category: category.id_category,
+            },
+            attributes: ["categoria"], // Assuming the category name is stored in the 'categoria' field
+          });
+
+          return categoryName.categoria; // Assuming the category name is stored in the 'categoria' field
+        })
+      );
+
+      product.dataValues.categories = categories.map((category, index) => {
+        return {
+          label: categoryNames[index],
+          value: category.id_category,
+        };
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
     if (!product) {
       return res.status(404).json({ message: "Error view" });
     }
@@ -156,20 +201,25 @@ export const updateProduct = async (req, res) => {
       price_cost,
       sale_price,
       existence,
+      categories,
     } = req.body;
 
-    const products = await Product.findOne({
+    // Obtener una lista de IDs de categorías desde la data recibida del cliente
+    const categoryIds = categories.map((category) => category.value);
+
+    const productToUpdate = await Product.findOne({
       where: {
         id_product: id,
         active: true,
       },
     });
 
-    if (!products) {
+    if (!productToUpdate) {
       return res.status(404).json({ message: "Error update" });
     }
 
-    await products.update({
+    // Actualizar las propiedades del producto
+    await productToUpdate.update({
       product,
       description,
       expiration_date,
@@ -181,9 +231,25 @@ export const updateProduct = async (req, res) => {
       existence,
     });
 
+    // Actualizar las categorías del producto
+    if (categoryIds && categoryIds.length > 0) {
+      await ProductCategory.destroy({
+        where: {
+          id_product: productToUpdate.id_product,
+        },
+      });
+
+      const categoryUpdates = categoryIds.map((categoryId) => ({
+        id_product: productToUpdate.id_product,
+        id_category: categoryId,
+      }));
+
+      await ProductCategory.bulkCreate(categoryUpdates);
+    }
+
     return res.json({
       message: "Product updated successfully",
-      data: products,
+      data: productToUpdate,
     });
   } catch (error) {
     console.log(error);

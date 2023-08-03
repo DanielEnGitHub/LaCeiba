@@ -7,9 +7,11 @@ import { Button, ModalFooter } from "@chakra-ui/react";
 import { getProvider } from "../../conection/provider";
 import Select from "react-select";
 import InputSelect from "../../components/Input/InputSelect";
+import { getSelectCategory } from "../../conection/category";
 
 const FormComponent = ({ onClose, getData, update, dataUpdate }) => {
   const [providerSelect, setProviderSelect] = useState([]);
+  const [categoriesSelect, setCategoriesSelect] = useState([]);
   const {
     control,
     register,
@@ -48,7 +50,13 @@ const FormComponent = ({ onClose, getData, update, dataUpdate }) => {
       setProviderSelect(provider);
     };
 
+    const getCategoriesData = async () => {
+      const categories = await getSelectCategory();
+      setCategoriesSelect(categories);
+    };
+
     getProviderData();
+    getCategoriesData();
   }, []);
 
   return (
@@ -68,6 +76,18 @@ const FormComponent = ({ onClose, getData, update, dataUpdate }) => {
           register={register}
           key_name="description"
           label="Descripción"
+        />
+
+        <InputSelect
+          options={categoriesSelect}
+          placeholder="Categoría"
+          errors={errors}
+          register={register}
+          control={control}
+          key_name="categories"
+          label="Selecciona la categoría"
+          validation
+          isMulti
         />
 
         <InputFormValidation

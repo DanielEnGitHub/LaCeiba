@@ -53,6 +53,20 @@ export const updateCategory = async (id, category) => {
   }
 };
 
+// get select category
+export const getSelectCategory = async () => {
+  try {
+    const response = await axios.get(`http://localhost:3000/api/category/`);
+    const data = response.data.map((category) => ({
+      value: category.id_category,
+      label: category.categoria,
+    }));
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // delete category
 export const deleteCategory = async (id) => {
   try {

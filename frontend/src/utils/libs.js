@@ -15,8 +15,11 @@ export const sweetError = (id, getAPI, deleteDate, title) => {
     text: "Esta acción no se puede deshacer.",
     icon: "warning",
     showCancelButton: true,
+    confirmButtonColor: "#3182CE",
     confirmButtonText: "¡Sí, eliminar!",
     cancelButtonText: "Cancelar",
+    cancelButtonColor: "white",
+    customClass: "custom-swal-class",
   }).then(async (result) => {
     if (result.isConfirmed) {
       await deleteDate(id);

@@ -46,6 +46,33 @@ export const getProvider = async (id) => {
   }
 };
 
+// get by id provider
+export const getByIdProvider = async (id) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/api/provider/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// update provider
+export const updateProvider = async (id, data) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:3000/api/provider/${id}`,
+      data
+    );
+    toast.success("Proveedor Actualizado");
+    return response.data;
+  } catch (error) {
+    toast.error("Error al actualizar el proveedor");
+    return error;
+  }
+};
+
 // delete provider
 export const deleteProvider = async (id) => {
   try {

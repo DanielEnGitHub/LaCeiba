@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, useDisclosure } from "@chakra-ui/react";
 import useListAPI from "../../hooks/useListAPI";
 import { listProducts, deleteProduct } from "../../conection/products";
-import { PiEyeBold, PiPencilBold, PiTrashBold } from "react-icons/pi";
+import { PiPencilBold, PiTrashBold } from "react-icons/pi";
 import Item from "../../components/Buttons";
 import ContentView from "../../components/ContentView";
 import { sweetError } from "../../utils/libs";
@@ -46,7 +46,6 @@ const Product = () => {
             return (
               <>
                 <Flex>
-                  <Item icon={PiEyeBold}></Item>
                   <Item icon={PiPencilBold}></Item>
                   <Item
                     icon={PiTrashBold}

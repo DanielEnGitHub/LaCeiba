@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Flex, useDisclosure } from "@chakra-ui/react";
 import useListAPI from "../../hooks/useListAPI";
-import { listProvider, deleteProvider } from "../../conection/provider";
-import { PiEyeBold, PiPencilBold, PiTrashBold } from "react-icons/pi";
+import {
+  listProvider,
+  deleteProvider,
+  getByIdProvider,
+} from "../../conection/provider";
+import { PiPencilBold, PiTrashBold } from "react-icons/pi";
 import Item from "../../components/Buttons";
 import ContentView from "../../components/ContentView";
 import { sweetError } from "../../utils/libs";
 import ModalCustom from "../../components/Modal";
 import FormComponent from "./FormComponent";
+import useUpdate from "../../hooks/useUpdate";
 
 const Provider = () => {
+  // custom hook
   const { data, getData } = useListAPI({ getFunction: listProvider });
+
+  // useDisclosure
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { update, setUpdate, dataUpdate, setDataUpdate, handleUpdate } =
+    useUpdate({ getById: getByIdProvider, onOpen });
 
   const columns = [
     {
@@ -40,8 +52,10 @@ const Provider = () => {
             return (
               <>
                 <Flex>
-                  <Item icon={PiEyeBold}></Item>
-                  <Item icon={PiPencilBold}></Item>
+                  <Item
+                    onClick={() => handleUpdate(d.id_provaider)}
+                    icon={PiPencilBold}
+                  ></Item>
                   <Item
                     icon={PiTrashBold}
                     onClick={() =>
@@ -61,7 +75,6 @@ const Provider = () => {
       ],
     },
   ];
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -71,9 +84,15 @@ const Provider = () => {
         title={"Proveedores"}
         titleButton={"Crear Proveedor"}
         onOpen={onOpen}
+        setUpdate={setUpdate}
       />
       <ModalCustom isOpen={isOpen} onClose={onClose} title={"Proveedores"}>
-        <FormComponent onClose={onClose} getData={getData} />
+        <FormComponent
+          onClose={onClose}
+          getData={getData}
+          update={update}
+          dataUpdate={dataUpdate}
+        />
       </ModalCustom>
     </>
   );

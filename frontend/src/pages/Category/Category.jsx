@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, useDisclosure } from "@chakra-ui/react";
 import useListAPI from "../../hooks/useListAPI";
 import { listCategory, deleteCategory } from "../../conection/category";
-import { PiEyeBold, PiPencilBold, PiTrashBold } from "react-icons/pi";
+import { PiPencilBold, PiTrashBold } from "react-icons/pi";
 import Item from "../../components/Buttons";
 import ContentView from "../../components/ContentView";
 import { sweetError } from "../../utils/libs";
@@ -33,7 +33,6 @@ const Category = () => {
             return (
               <>
                 <Flex>
-                  <Item icon={PiEyeBold}></Item>
                   <Item icon={PiPencilBold}></Item>
                   <Item
                     icon={PiTrashBold}

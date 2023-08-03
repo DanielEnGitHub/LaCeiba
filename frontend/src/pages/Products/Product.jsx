@@ -7,6 +7,7 @@ import Item from "../../components/Buttons";
 import ContentView from "../../components/ContentView";
 import { sweetError } from "../../utils/libs";
 import ModalCustom from "../../components/Modal";
+import FormComponent from "./FormComponent";
 
 const Product = () => {
   const { data, getData } = useListAPI({ getFunction: listProducts });
@@ -78,7 +79,9 @@ const Product = () => {
         titleButton={"Crear Producto"}
         onOpen={onOpen}
       />
-      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Productos"} />
+      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Productos"}>
+        <FormComponent onClose={onClose} getData={getData} />
+      </ModalCustom>
     </>
   );
 };

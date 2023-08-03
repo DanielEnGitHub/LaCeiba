@@ -7,6 +7,7 @@ import Item from "../../components/Buttons";
 import ContentView from "../../components/ContentView";
 import { sweetError } from "../../utils/libs";
 import ModalCustom from "../../components/Modal";
+import FormComponent from "./FormComponent";
 const Category = () => {
   const { data, getData } = useListAPI({ getFunction: listCategory });
 
@@ -64,7 +65,9 @@ const Category = () => {
         titleButton={"Crear Categoria"}
         onOpen={onOpen}
       />
-      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Categorias"}/>
+      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Categorias"}>
+        <FormComponent onClose={onClose} getData={getData} />
+      </ModalCustom>
     </>
   );
 };

@@ -7,6 +7,7 @@ import Item from "../../components/Buttons";
 import ContentView from "../../components/ContentView";
 import { sweetError } from "../../utils/libs";
 import ModalCustom from "../../components/Modal";
+import FormComponent from "./FormComponent";
 
 const Provider = () => {
   const { data, getData } = useListAPI({ getFunction: listProvider });
@@ -71,7 +72,9 @@ const Provider = () => {
         titleButton={"Crear Proveedor"}
         onOpen={onOpen}
       />
-      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Proveedores"} />
+      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Proveedores"}>
+        <FormComponent onClose={onClose} getData={getData} />
+      </ModalCustom>
     </>
   );
 };

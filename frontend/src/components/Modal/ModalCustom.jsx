@@ -10,21 +10,14 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const ModalCustom = ({ isOpen, onClose, title }) => {
+const ModalCustom = ({ isOpen, onClose, title, children }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody></ModalBody>
-
-        <ModalFooter>
-          <Button variant="ghost" mr={3} onClick={onClose}>
-            Cerrar
-          </Button>
-          <Button colorScheme="blue">Guardar</Button>
-        </ModalFooter>
+        <ModalBody>{children}</ModalBody>
       </ModalContent>
     </Modal>
   );

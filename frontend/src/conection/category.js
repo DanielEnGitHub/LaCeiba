@@ -11,6 +11,21 @@ export const listCategory = async () => {
   }
 };
 
+// create category
+export const createCategory = async (category) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/category",
+      category
+    );
+    toast.success("Categoria Creada");
+    return response.data;
+  } catch (error) {
+    toast.error("Error al crear la categoria");
+    return error;
+  }
+};
+
 // delete category
 export const deleteCategory = async (id) => {
   try {

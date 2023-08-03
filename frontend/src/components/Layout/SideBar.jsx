@@ -10,9 +10,11 @@ import {
   Drawer,
   DrawerContent,
   useDisclosure,
+  Image,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { PiArchiveBold, PiGitForkBold, PiUsersThreeBold } from "react-icons/pi";
+import { logo } from "../../utils/images";
 
 const LinkItems = [
   { name: "Productos", link: "/products", icon: PiArchiveBold },
@@ -62,8 +64,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+      <Flex h="20" alignItems="center" mx="5" justifyContent="space-between">
+        <Image src={logo} alt="logo" width={8} ml={-2} />
+        <Text fontSize="22px" fontFamily="monospace" fontWeight="bold">
           La Ceiba S.A
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
@@ -124,7 +127,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
     >
       <IconButton variant="outline" onClick={onOpen} aria-label="open menu" />
 
-      <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
+      <Text fontSize="22px" ml="8" fontFamily="monospace" fontWeight="bold">
         La Ceiba S.A
       </Text>
     </Flex>

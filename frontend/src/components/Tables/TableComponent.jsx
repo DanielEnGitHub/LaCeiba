@@ -1,3 +1,4 @@
+import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import React from "react";
 import { useTable } from 'react-table'
 
@@ -10,29 +11,31 @@ const TableComponent = ({ columns, data }) => {
 
   // Render the UI for your table
   return (
-    <table {...getTableProps()}>
-      <thead>
+    <TableContainer>
+    <Table variant='striped' colorScheme='blue' {...getTableProps()}>
+      <Thead>
         {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <Tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              <Th {...column.getHeaderProps()}>{column.render("Header")}</Th>
             ))}
-          </tr>
+          </Tr>
         ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
+      </Thead>
+      <Tbody {...getTableBodyProps()}>
         {rows.map((row, i) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <Tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                return <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>;
               })}
-            </tr>
+            </Tr>
           );
         })}
-      </tbody>
-    </table>
+      </Tbody>
+    </Table>
+    </TableContainer>
   );
 };
 

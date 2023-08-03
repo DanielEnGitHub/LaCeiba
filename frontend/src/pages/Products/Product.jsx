@@ -6,14 +6,40 @@ import {
   Stack,
   Text,
   Button,
+  Box,
+  Icon,
 } from '@chakra-ui/react'
 import TableComponent from '../../components/Tables/TableComponent';
 import useListAPI from "../../hooks/useListAPI";
-import {listProducts} from "../../conection/products";
+import {listProducts, deleteProduct} from "../../conection/products";
+import { PiEyeBold, PiPencilBold, PiTrashBold } from 'react-icons/pi';
+import Swal from 'sweetalert2';
+import Item from '../../components/Buttons';
 
+
+
+const Product =  () => {
+  const { data, getData } = useListAPI({ getFunction: listProducts });
+
+  const sweetError = (id) => {
+    Swal.fire({
+      title: '¿Estás de eliminar el producto?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '¡Sí, eliminar!',
+      cancelButtonText: 'Cancelar',
+    }).then( async(result) => {
+      if (result.isConfirmed) {
+        await deleteProduct(id);
+        getData();
+      }
+    });
+  }
+  
 const columns =  [
   {
-    Header: "Productos",
+    Header: "DATOS DE PRODUCTOS",
     columns: [
       { 
         Header: "Codigo", 
@@ -44,7 +70,11 @@ const columns =  [
         accessor: (d) => {
           return (
             <>
-              nada
+            <Flex>
+              <Item icon={PiEyeBold}></Item>
+              <Item icon={PiPencilBold}></Item>
+              <Item icon={PiTrashBold} onClick={()=>sweetError(d.id_product)}></Item>
+            </Flex>
             </>
           );
         },
@@ -53,8 +83,6 @@ const columns =  [
   },
 ];
 
-const Product = () => {
-  const { data, getData } = useListAPI({ getFunction: listProducts });
 
   return (
     <Container maxW={'5xl'}>
@@ -68,7 +96,7 @@ const Product = () => {
           fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
           lineHeight={'110%'}>
           Prod
-          <Text as={'span'} color={'orange.400'}>
+          <Text as={'span'} color={'blue.400'}>
             uctos
           </Text>
         </Heading>

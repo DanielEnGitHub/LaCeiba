@@ -26,6 +26,26 @@ export const createProvider = async (data) => {
   }
 };
 
+// get selected provider
+export const getProvider = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:3000/api/provider/`);
+
+    const data = [];
+
+    response.data.map((item) => {
+      data.push({
+        value: item.id_provaider,
+        label: item.name,
+      });
+    });
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // delete provider
 export const deleteProvider = async (id) => {
   try {

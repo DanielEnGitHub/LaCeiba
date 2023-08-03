@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputFormValidation from "../../components/Input/InputFormValidation/InputFormValidation";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { createProduct } from "../../conection/products";
 import { Button, ModalFooter } from "@chakra-ui/react";
+// import InputSelect from "../../components/Input/InputSelect";
+import { getProvider } from "../../conection/provider";
+import Select from "react-select";
+import InputSelect from "../../components/Input/InputSelect";
 
 const FormComponent = ({ onClose, getData }) => {
+  const [providerSelect, setProviderSelect] = useState([]);
   const {
     getValues,
     control,
@@ -15,10 +20,20 @@ const FormComponent = ({ onClose, getData }) => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    data.id_provaider = data.id_provaider.value;
     await createProduct(data);
     getData();
     onClose();
   };
+
+  useEffect(() => {
+    const getProviderData = async () => {
+      const provider = await getProvider();
+      setProviderSelect(provider);
+    };
+
+    getProviderData();
+  }, []);
 
   return (
     <>
@@ -57,13 +72,15 @@ const FormComponent = ({ onClose, getData }) => {
           type="date"
         />
 
-        <InputFormValidation
-          placeholder="Ingresa el proveedor"
+        <InputSelect
+          options={providerSelect}
+          placeholder="Proveedor"
           errors={errors}
           register={register}
+          control={control}
           key_name="id_provaider"
-          label="Proveedor"
-          type="number"
+          label="Selecciona el proveedor"
+          validation
         />
 
         <InputFormValidation

@@ -16,7 +16,7 @@ const useUpdate = ({getById, onOpen}) => {
     setUpdate(true);
   };
 
-  return { update, setUpdate, dataUpdate, setDataUpdate, handleUpdate };
+  return { update, setUpdate, dataUpdate, handleUpdate };
 };
 
 export default useUpdate;

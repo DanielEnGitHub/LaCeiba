@@ -21,7 +21,7 @@ const Provider = () => {
   // useDisclosure
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { update, setUpdate, dataUpdate, setDataUpdate, handleUpdate } =
+  const { update, setUpdate, dataUpdate, handleUpdate } =
     useUpdate({ getById: getByIdProvider, onOpen });
 
   const columns = [

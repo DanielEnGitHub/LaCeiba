@@ -26,6 +26,33 @@ export const createCategory = async (category) => {
   }
 };
 
+// get by id category
+export const getByIdCategory = async (id) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/api/category/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// update category
+export const updateCategory = async (id, category) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:3000/api/category/${id}`,
+      category
+    );
+    toast.success("Categoria Actualizada");
+    return response.data;
+  } catch (error) {
+    toast.error("Error al actualizar la categoria");
+    return error;
+  }
+};
+
 // delete category
 export const deleteCategory = async (id) => {
   try {

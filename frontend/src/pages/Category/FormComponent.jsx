@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InputFormValidation from "../../components/Input/InputFormValidation/InputFormValidation";
 import { useForm } from "react-hook-form";
-import { createCategory } from "../../conection/category";
+import { createCategory, updateCategory } from "../../conection/category";
 import { Button, ModalFooter } from "@chakra-ui/react";
 
-const FormComponent = ({ onClose, getData }) => {
+const FormComponent = ({ onClose, getData, update, dataUpdate }) => {
   const {
-    getValues,
-    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -15,10 +13,26 @@ const FormComponent = ({ onClose, getData }) => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    if (update) {
+      await updateCategory(dataUpdate.id_category, data);
+      getData();
+      onClose();
+      return;
+    }
     await createCategory(data);
     getData();
     onClose();
   };
+
+  const getDataUpdate = async () => {
+    reset(dataUpdate);
+  };
+
+  useEffect(() => {
+    if (update) {
+      getDataUpdate();
+    }
+  }, [update]);
 
   return (
     <>

@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import InputFormValidation from "../../components/Input/InputFormValidation/InputFormValidation";
 import { Controller, useForm } from "react-hook-form";
-import { createProduct } from "../../conection/products";
+import { createProduct, updateProduct } from "../../conection/products";
 import { Button, ModalFooter } from "@chakra-ui/react";
 // import InputSelect from "../../components/Input/InputSelect";
 import { getProvider } from "../../conection/provider";
 import Select from "react-select";
 import InputSelect from "../../components/Input/InputSelect";
 
-const FormComponent = ({ onClose, getData }) => {
+const FormComponent = ({ onClose, getData, update, dataUpdate }) => {
   const [providerSelect, setProviderSelect] = useState([]);
   const {
-    getValues,
     control,
     register,
     handleSubmit,
@@ -21,10 +20,27 @@ const FormComponent = ({ onClose, getData }) => {
 
   const onSubmit = async (data) => {
     data.id_provaider = data.id_provaider.value;
+
+    if (update) {
+      await updateProduct(dataUpdate.id_product, data);
+      getData();
+      onClose();
+      return;
+    }
     await createProduct(data);
     getData();
     onClose();
   };
+
+  const getDataUpdate = async () => {
+    reset(dataUpdate);
+  };
+
+  useEffect(() => {
+    if (update) {
+      getDataUpdate();
+    }
+  }, [update]);
 
   useEffect(() => {
     const getProviderData = async () => {

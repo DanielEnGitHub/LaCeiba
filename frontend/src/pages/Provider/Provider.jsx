@@ -1,11 +1,12 @@
 import React from "react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
 import useListAPI from "../../hooks/useListAPI";
 import { listProvider, deleteProvider } from "../../conection/provider";
 import { PiEyeBold, PiPencilBold, PiTrashBold } from "react-icons/pi";
 import Item from "../../components/Buttons";
 import ContentView from "../../components/ContentView";
 import { sweetError } from "../../utils/libs";
+import ModalCustom from "../../components/Modal";
 
 const Provider = () => {
   const { data, getData } = useListAPI({ getFunction: listProvider });
@@ -59,14 +60,19 @@ const Provider = () => {
       ],
     },
   ];
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <ContentView
-      columns={columns}
-      data={data}
-      title={"Proveedores"}
-      titleButton={"Crear Proveedor"}
-    />
+    <>
+      <ContentView
+        columns={columns}
+        data={data}
+        title={"Proveedores"}
+        titleButton={"Crear Proveedor"}
+        onOpen={onOpen}
+      />
+      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Proveedores"} />
+    </>
   );
 };
 

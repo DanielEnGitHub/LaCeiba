@@ -1,11 +1,12 @@
 import React from "react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
 import useListAPI from "../../hooks/useListAPI";
 import { listProducts, deleteProduct } from "../../conection/products";
 import { PiEyeBold, PiPencilBold, PiTrashBold } from "react-icons/pi";
 import Item from "../../components/Buttons";
 import ContentView from "../../components/ContentView";
 import { sweetError } from "../../utils/libs";
+import ModalCustom from "../../components/Modal";
 
 const Product = () => {
   const { data, getData } = useListAPI({ getFunction: listProducts });
@@ -66,13 +67,19 @@ const Product = () => {
     },
   ];
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <ContentView
-      columns={columns}
-      data={data}
-      title={"Productos"}
-      titleButton={"Crear Producto"}
-    />
+    <>
+      <ContentView
+        columns={columns}
+        data={data}
+        title={"Productos"}
+        titleButton={"Crear Producto"}
+        onOpen={onOpen}
+      />
+      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Productos"} />
+    </>
   );
 };
 

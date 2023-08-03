@@ -1,11 +1,12 @@
 import React from "react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
 import useListAPI from "../../hooks/useListAPI";
 import { listCategory, deleteCategory } from "../../conection/category";
 import { PiEyeBold, PiPencilBold, PiTrashBold } from "react-icons/pi";
 import Item from "../../components/Buttons";
 import ContentView from "../../components/ContentView";
 import { sweetError } from "../../utils/libs";
+import ModalCustom from "../../components/Modal";
 const Category = () => {
   const { data, getData } = useListAPI({ getFunction: listCategory });
 
@@ -53,13 +54,18 @@ const Category = () => {
     },
   ];
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <ContentView
-      columns={columns}
-      data={data}
-      title={"Categorias"}
-      titleButton={"Crear Categoria"}
-    />
+    <>
+      <ContentView
+        columns={columns}
+        data={data}
+        title={"Categorias"}
+        titleButton={"Crear Categoria"}
+        onOpen={onOpen}
+      />
+      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Categorias"}/>
+    </>
   );
 };
 

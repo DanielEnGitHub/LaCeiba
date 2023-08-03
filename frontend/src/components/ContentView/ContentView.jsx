@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Container,
   Flex,
   Heading,
@@ -13,7 +12,7 @@ import React from "react";
 import TableComponent from "../Tables/TableComponent";
 import { textSlice } from "../../utils/libs";
 
-const ContentView = ({ columns, data, title, titleButton }) => {
+const ContentView = ({ columns, data, title, titleButton, onOpen }) => {
   return (
     <Container maxW={"5xl"}>
       <Stack
@@ -36,7 +35,9 @@ const ContentView = ({ columns, data, title, titleButton }) => {
             </Heading>
           </Box>
           <Spacer />
-          <Button colorScheme="blue">{titleButton}</Button>
+          <Button colorScheme="blue" onClick={onOpen}>
+            {titleButton}
+          </Button>
         </Flex>
 
         <TableComponent columns={columns} data={data} />

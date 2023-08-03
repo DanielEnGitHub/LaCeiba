@@ -93,7 +93,12 @@ const Product = () => {
         onOpen={onOpen}
         setUpdate={setUpdate}
       />
-      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Productos"}>
+      <ModalCustom
+        isOpen={isOpen}
+        onClose={onClose}
+        title={"Productos"}
+        update={update}
+      >
         <FormComponent
           onClose={onClose}
           getData={getData}

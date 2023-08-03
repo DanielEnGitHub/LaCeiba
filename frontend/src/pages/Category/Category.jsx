@@ -81,7 +81,12 @@ const Category = () => {
         onOpen={onOpen}
         setUpdate={setUpdate}
       />
-      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Categorias"}>
+      <ModalCustom
+        isOpen={isOpen}
+        onClose={onClose}
+        title={"Categorias"}
+        update={update}
+      >
         <FormComponent
           onClose={onClose}
           getData={getData}

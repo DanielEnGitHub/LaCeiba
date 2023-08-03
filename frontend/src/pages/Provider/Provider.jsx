@@ -21,8 +21,10 @@ const Provider = () => {
   // useDisclosure
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { update, setUpdate, dataUpdate, handleUpdate } =
-    useUpdate({ getById: getByIdProvider, onOpen });
+  const { update, setUpdate, dataUpdate, handleUpdate } = useUpdate({
+    getById: getByIdProvider,
+    onOpen,
+  });
 
   const columns = [
     {
@@ -86,7 +88,12 @@ const Provider = () => {
         onOpen={onOpen}
         setUpdate={setUpdate}
       />
-      <ModalCustom isOpen={isOpen} onClose={onClose} title={"Proveedores"}>
+      <ModalCustom
+        isOpen={isOpen}
+        onClose={onClose}
+        title={"Proveedores"}
+        update={update}
+      >
         <FormComponent
           onClose={onClose}
           getData={getData}

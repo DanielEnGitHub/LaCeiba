@@ -53,7 +53,14 @@ const Category = () => {
     },
   ];
 
-  return <ContentView columns={columns} data={data} title={"Categorias"} />;
+  return (
+    <ContentView
+      columns={columns}
+      data={data}
+      title={"Categorias"}
+      titleButton={"Crear Categoria"}
+    />
+  );
 };
 
 export default Category;

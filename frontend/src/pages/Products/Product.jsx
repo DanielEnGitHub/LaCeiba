@@ -66,7 +66,14 @@ const Product = () => {
     },
   ];
 
-  return <ContentView columns={columns} data={data} title={"Productos"} />;
+  return (
+    <ContentView
+      columns={columns}
+      data={data}
+      title={"Productos"}
+      titleButton={"Crear Producto"}
+    />
+  );
 };
 
 export default Product;

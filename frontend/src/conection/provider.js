@@ -11,6 +11,21 @@ export const listProvider = async () => {
   }
 };
 
+// create provider
+export const createProvider = async (data) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/provider",
+      data
+    );
+    toast.success("Proveedor Creado");
+    return response.data;
+  } catch (error) {
+    toast.error("Error al crear el proveedor");
+    return error;
+  }
+};
+
 // delete provider
 export const deleteProvider = async (id) => {
   try {

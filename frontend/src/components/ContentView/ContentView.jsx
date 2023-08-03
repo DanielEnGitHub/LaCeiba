@@ -1,9 +1,19 @@
-import { Container, Heading, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Container,
+  Flex,
+  Heading,
+  Spacer,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import TableComponent from "../Tables/TableComponent";
 import { textSlice } from "../../utils/libs";
 
-const ContentView = ({ columns, data, title }) => {
+const ContentView = ({ columns, data, title, titleButton }) => {
   return (
     <Container maxW={"5xl"}>
       <Stack
@@ -12,31 +22,24 @@ const ContentView = ({ columns, data, title }) => {
         spacing={{ base: 8, md: 10 }}
         py={{ base: 20, md: 28 }}
       >
-        <Heading
-          fontWeight={600}
-          fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
-          lineHeight={"110%"}
-        >
-          {textSlice(title)[0]}
-          <Text as={"span"} color={"blue.400"}>
-            {textSlice(title)[1]}
-          </Text>
-        </Heading>
+        <Flex minWidth="95%" alignItems="center" gap="2">
+          <Box p="2">
+            <Heading
+              fontWeight={600}
+              fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
+              lineHeight={"110%"}
+            >
+              {textSlice(title)[0]}
+              <Text as={"span"} color={"blue.400"}>
+                {textSlice(title)[1]}
+              </Text>
+            </Heading>
+          </Box>
+          <Spacer />
+          <Button colorScheme="blue">{titleButton}</Button>
+        </Flex>
 
-        <Stack spacing={6} direction={"row"}>
-          <TableComponent columns={columns} data={data} />
-          {/* <Button
-            rounded={'full'}
-            px={6}
-            colorScheme={'orange'}
-            bg={'orange.400'}
-            _hover={{ bg: 'orange.500' }}>
-            Get started
-          </Button>
-          <Button rounded={'full'} px={6}>
-            Learn more
-          </Button> */}
-        </Stack>
+        <TableComponent columns={columns} data={data} />
       </Stack>
     </Container>
   );

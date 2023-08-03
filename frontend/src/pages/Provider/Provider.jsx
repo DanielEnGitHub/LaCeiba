@@ -60,7 +60,14 @@ const Provider = () => {
     },
   ];
 
-  return <ContentView columns={columns} data={data} title={"Proveedores"} />;
+  return (
+    <ContentView
+      columns={columns}
+      data={data}
+      title={"Proveedores"}
+      titleButton={"Crear Proveedor"}
+    />
+  );
 };
 
 export default Provider;
